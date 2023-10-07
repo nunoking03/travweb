@@ -1,18 +1,34 @@
-import { Canister, query, text, update, Void, blob, Record, Principal  } from 'azle';
-import  { message, precio, nombrepropiedad, pagos} from './db'
+import { Canister, query, text, update, Void, blob, Record, Principal, bool  } from 'azle';
+import  {usarios} from './db'
 
+// This is a global variable that is stored on the heap
+export let message = '';
+export let precio = '';
+export let nombrepropiedad = '' ;
+export const pagos = Uint8Array.from([1500,1600, 1700, 1800, 1900]);
 
 const User = Record({
-    id: Principal,
-    username: text
+    id: text,
 });
 
 export default Canister({
-    getUser: query([], User, () => {
-        return {
-            id: Principal.fromUint8Array(Uint8Array.from([0])),
-            username: 'lastmjs'
-        };
+// necessita metodo añadir propiedad
+// buscarPropiedad por identificador
+// anadir Usuario
+    addUser: update([text], bool, (identificador) => {
+        usarios[identificador] = {
+            id: identificador
+        }
+        return true;
+    }),
+    getUser: query([text], User, (identificador) => {
+        const user = usarios[identificador];
+
+        if (user === undefined) {
+            return {id: "test"}
+        } else {
+            return user
+        }
     }),
     printUser: query([User], User, (user) => {
         console.log(typeof user);
@@ -67,4 +83,13 @@ export default Canister({
         
 
         }),
+    // buscarReservaciones: query([PreguntaDeReservaciones], Vec(Habitacion), () = {
+
+    // } ) 
 });
+
+// const PreguntaDeReservaciones =  Record({
+//     fechaDeEntrada: ,
+//     fechaDeSalida: ,
+//     numeroDeHabitaciones: 
+// })

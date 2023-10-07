@@ -1,0 +1,1 @@
+Si falla la installacion, se puede cambiar le dfx.json para que el build dice npx azle --verbose

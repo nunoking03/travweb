@@ -1,10 +1,11 @@
 service: () -> {
+    addUser: (text) -> (bool);
     calcularpagomensual: (vec nat8) -> (vec nat8) query;
-    getUser: () -> (record {id:principal; username:text}) query;
+    getUser: (text) -> (record {id:text}) query;
     getnombrepropiedad: () -> (text) query;
     getprecio: () -> (text) query;
     obtenerpagos: () -> (vec nat8) query;
-    printUser: (record {id:principal; username:text}) -> (record {id:principal; username:text}) query;
+    printUser: (record {id:text}) -> (record {id:text}) query;
     setnombrepropiedad: (text) -> ();
     setprecio: (text) -> ();
 }
