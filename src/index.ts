@@ -1,10 +1,6 @@
 import { Canister, query, text, update, Void, blob, Record, Principal  } from 'azle';
+import  { message, precio, nombrepropiedad, pagos} from './db'
 
-// This is a global variable that is stored on the heap
-let message = '';
-let precio = '';
-let nombrepropiedad = '' ;
-const pagos = Uint8Array.from([1500,1600, 1700, 1800, 1900]);
 
 const User = Record({
     id: Principal,
